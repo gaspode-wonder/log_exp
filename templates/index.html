@@ -1,0 +1,37 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sensor Data Logger</title>
+</head>
+<body>
+    <h1>Logged Sensor Data</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Counts per second</th>
+                <th>Value</th>
+                <th>Counts per minute</th>
+                <th>Value</th>
+                <th>microSieverts per hour</th>
+                <th>Value</th>
+                <th>Mode</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+                <td>{{ row[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
