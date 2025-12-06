@@ -1,0 +1,51 @@
+- name: Install dependencies
+  apt:
+    name: [python3, python3-pip, python3-venv, nginx, uwsgi, uwsgi-plugin-python3]
+    state: present
+    update_cache: yes
+
+- name: Create app directory
+  file:
+    path: /opt/flaskapp
+    state: directory
+    owner: deploy
+    group: deploy
+
+- name: Copy Flask app
+  copy:
+    src: files/app/
+    dest: /opt/flaskapp/
+
+- name: Install Python requirements
+  pip:
+    requirements: /opt/flaskapp/requirements.txt
+    virtualenv: /opt/flaskapp/venv
+
+- name: Configure uWSGI
+  template:
+    src: uwsgi.ini.j2
+    dest: /etc/uwsgi/apps-available/flask.ini
+
+- name: Enable uWSGI app
+  file:
+    src: /etc/uwsgi/apps-available/flask.ini
+    dest: /etc/uwsgi/apps-enabled/flask.ini
+    state: link
+
+- name: Ensure uWSGI service is running
+  service:
+    name: uwsgi
+    state: started
+    enabled: yes
+
+- name: Configure Nginx reverse proxy
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/flask
+  notify: restart nginx
+
+- name: Enable Nginx site
+  file:
+    src: /etc/nginx/sites-available/flask
+    dest: /etc/nginx/sites-enabled/flask
+    state: link

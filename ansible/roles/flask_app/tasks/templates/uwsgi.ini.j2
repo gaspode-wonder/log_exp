@@ -1,0 +1,8 @@
+[uwsgi]
+chdir = /opt/flaskapp
+module = wsgi:app
+home = /opt/flaskapp/venv
+socket = /run/uwsgi/flask.sock
+chmod-socket = 660
+vacuum = true
+die-on-term = true

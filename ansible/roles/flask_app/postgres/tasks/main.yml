@@ -1,0 +1,23 @@
+- name: Install PostgreSQL
+  apt:
+    name: [postgresql, postgresql-contrib, libpq-dev, python3-psycopg2]
+    state: present
+    update_cache: yes
+
+- name: Ensure PostgreSQL service is running
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Create geiger database
+  become_user: postgres
+  postgresql_db:
+    name: geiger_data
+
+- name: Create geiger user
+  become_user: postgres
+  postgresql_user:
+    name: geiger_user
+    password: "{{ geiger_db_password }}"
+    priv: "ALL"

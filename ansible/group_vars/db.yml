@@ -1,0 +1,3 @@
+geiger_db_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          <encrypted password blob here>
