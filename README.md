@@ -1,3 +1,16 @@
+# ⚠️ Project Archived — No Longer Maintained
+
+This repository is preserved for historical reference only.
+
+Active development has moved to the new LogExp project, which contains the current codebase, architecture, and supported features.
+
+👉 **New repository:** https://github.com/gaspode-wonder/logexp
+
+Please do not open issues or pull requests on this archived repository.
+
+
+
+
 # log_exp
 
 geiger-flask-app/
